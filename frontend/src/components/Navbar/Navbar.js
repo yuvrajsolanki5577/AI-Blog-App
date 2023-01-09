@@ -38,8 +38,8 @@ const Navbar = () => {
       </button>
       <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 hidden" id="user-dropdown">
         <div className="px-4 py-3">
-          <span className="block text-sm text-gray-900 dark:text-white">{user.user}</span>
-          <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-300">Hello { user.user }</span>
+          <span className="block text-sm text-gray-900 dark:text-white">Hello {user.user}</span>
+          <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-300">{ user.email }</span>
         </div>
         <ul className="py-1" aria-labelledby="user-menu-button">
           <li>

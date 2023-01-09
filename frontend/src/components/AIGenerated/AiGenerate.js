@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Configuration, OpenAIApi }  from "openai";
 
 const configuration = new Configuration({
-    apiKey : process.env.OPENAI_API_KEY
+  apiKey : process.env.REACT_APP_OPENAI_API_KEYS,
 });
 
 const openai = new OpenAIApi(configuration);
@@ -10,6 +10,7 @@ const openai = new OpenAIApi(configuration);
 const AiGenerate = () => {
 
   const[input, setInput] = useState();
+  const[ans, setans] = useState();
 
   const handleSubmit = (e) => {
 
@@ -25,6 +26,7 @@ const AiGenerate = () => {
         presence_penalty: 0,
       }).then((res) => {
           console.log(res);
+          setans(res.data.choices[0].text);
       }).catch((error) => {
           console.log(error);
       });
@@ -35,7 +37,7 @@ const AiGenerate = () => {
       <h1 className='flex items-center mb-6 text-gray-900 dark:text-white text-3xl font-bold underline'>
         Ai Generated Page
       </h1>
-      <form>   
+      <form method='POST'>   
         <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -45,6 +47,7 @@ const AiGenerate = () => {
             <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={handleSubmit}> Search </button>
         </div>
     </form>
+    <p className="leading-relaxed m-5 text-gray-200 mb-6">{ans}</p>
     </div>
   )
 }

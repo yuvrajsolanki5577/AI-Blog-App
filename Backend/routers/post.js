@@ -6,7 +6,7 @@ const multer = require("../middlewares/multer");
 const { postValidators, validate } = require("../middlewares/postValidator");
 const router = express.Router();
 
-router.post("/create" , verify , multer.single('thumbnail'), parseData , postValidators , validate , createPost);
+router.post("/create", verify , multer.single('thumbnail'), parseData , postValidators , validate , createPost);
 router.put("/:postId",verify ,multer.single('thumbnail'), parseData , postValidators , validate ,updatePost);
 router.delete("/:postId" ,verify , deletePost);
 router.get("/single/:postId",getSinglePost);

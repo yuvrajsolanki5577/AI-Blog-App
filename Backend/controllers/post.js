@@ -37,7 +37,7 @@ const isFeaturedPost = async (postId) => {
 exports.createPost = async (req,res) => {
     try {
 
-        const { title , meta , content , slug , tags , featured , }  = req.body;
+        const { title , meta , content , slug , tags , featured }  = req.body;
         const author = req.User_id;
         const {file} = req;
         
@@ -186,7 +186,7 @@ exports.getPosts = async (req,res) => {
     const { pageNo = 0 , limit = 10  } = req.query;
     const  posts = await Post.find({}).sort({createdAt : -1}).skip(parseInt(pageNo) * parseInt(limit)).limit(parseInt(limit)).populate("author");
     
-    res.json({posts : posts.map((post) => {
+    res.status(200).json({posts : posts.map((post) => {
         return ({
             id : post._id , title : post.title , content : post.content , meta : post.meta , slug : post.slug , tags : post.tags , thumbnail : post.thumbnail?.url , author : post.author
         })

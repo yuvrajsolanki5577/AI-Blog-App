@@ -28,12 +28,12 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
-            path="/new-blog"
-            element={<ProtectedRoute Component={NewBlog} />}
-          />
-          <Route
             path="/ai-generated"
             element={<ProtectedRoute Component={AiGenerate} />}
+          />
+          <Route
+            path="/new-blog"
+            element={<ProtectedRoute Component={NewBlog} />}
           />
           <Route
             path="/profile"

@@ -5,7 +5,9 @@ function About() {
     <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
       <section className="text-gray-400 bg-gray-900 body-font">
       <div className="container px-5 py-24 mx-auto">
-        <h1 className="text-3xl font-medium title-font text-white mb-12 text-center">Our Team</h1>
+      <h2 className="mb-6 mt-10 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
+        Our Team
+      </h2>
         <div className="flex flex-wrap -m-4">
           <div className="p-4 md:w-1/2 w-full">
             <div className="h-full bg-gray-800 bg-opacity-40 p-8 rounded">
@@ -16,8 +18,8 @@ function About() {
               <a className="inline-flex items-center">
                 <img alt="testimonial" src="https://dummyimage.com/106x106" className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center" />
                 <span className="flex-grow flex flex-col pl-4">
-                  <span className="title-font font-medium text-white">Holden Caulfield</span>
-                  <span className="text-gray-500 text-sm">UI DEVELOPER</span>
+                  <span className="title-font font-medium text-white">Shubham Jain</span>
+                  <span className="text-gray-500 text-sm">Software Engineer</span>
                 </span>
               </a>
             </div>
@@ -31,8 +33,8 @@ function About() {
               <a className="inline-flex items-center">
                 <img alt="testimonial" src="https://dummyimage.com/107x107" className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center" />
                 <span className="flex-grow flex flex-col pl-4">
-                  <span className="title-font font-medium text-white">Alper Kamu</span>
-                  <span className="text-gray-500 text-sm">DESIGNER</span>
+                  <span className="title-font font-medium text-white">Sakshi Raghuwanshi</span>
+                  <span className="text-gray-500 text-sm">Data Analytics</span>
                 </span>
               </a>
             </div>

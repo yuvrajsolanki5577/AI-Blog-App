@@ -46,7 +46,7 @@ const NewBlog = () => {
         axios
           .post(
             `${URL}/post/create`,
-            { title, meta, slug, tags, content, featured },
+            { title, meta, slug, tags, content, category ,featured },
             { headers: { authorization } }
           )
           .then((res) => {

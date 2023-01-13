@@ -37,7 +37,7 @@ const isFeaturedPost = async (postId) => {
 exports.createPost = async (req,res) => {
     try {
 
-        const { title , meta , content , slug , tags , featured }  = req.body;
+        const { title , meta , content , slug , tags , category , featured }  = req.body;
         const author = req.User_id;
         const {file} = req;
         
@@ -47,7 +47,7 @@ exports.createPost = async (req,res) => {
             return res.status(401).json({ error : `Please Use Unique Slug , this Slug is Already Exists` });
         }
         
-        const newPost = new Post({title , meta , content , slug , author , tags });
+        const newPost = new Post({title , meta , category ,content , slug , author , tags });
 
         if(file){
             const {secure_url : url , public_id} =  await cloudinary.uploader.upload(file.path);
@@ -63,7 +63,7 @@ exports.createPost = async (req,res) => {
             await addToFeaturedPost(newPost._id);
         }
 
-        res.json({post : {id : newPost._id,title , content , meta , slug , thumbnail : newPost.thumbnail?.url , author : newPost.author}});
+        res.json({post : {id : newPost._id,title , category , content , meta , slug , thumbnail : newPost.thumbnail?.url , author : newPost.author}});
 
     } catch (error) {
         return res.status(500).json({error : error.message});
@@ -188,7 +188,7 @@ exports.getPosts = async (req,res) => {
     
     res.status(200).json({posts : posts.map((post) => {
         return ({
-            id : post._id , title : post.title , content : post.content , meta : post.meta , slug : post.slug , tags : post.tags , thumbnail : post.thumbnail?.url , author : post.author
+            id : post._id , title : post.title , content : post.content , category : post.category , meta : post.meta , slug : post.slug , tags : post.tags , thumbnail : post.thumbnail?.url , author : post.author
         })
     })
   });

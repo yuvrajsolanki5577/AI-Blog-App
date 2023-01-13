@@ -199,7 +199,7 @@ exports.getUser = async (req,res) => {
     try {
         const {User_id} = req;
 
-        const user = await User.findById(User_id , "-password");
+        const user = await User.findById(User_id , "-password").populate("blogs");
         
         if(!user){
             return res.status(400).json({message : `User Not Found !!`});

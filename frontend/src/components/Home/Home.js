@@ -30,7 +30,7 @@ const Home = () => {
               <div className="h-full border-2 border-gray-800 rounded-lg overflow-hidden">
                 <img className="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog" />
                 <div className="p-6">
-                  <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">CATEGORY</h2>
+                  <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{post.category ? post.category : "Category"}</h2>
                   <h1 className="title-font text-lg font-medium text-white mb-3">{post.title}</h1>
                   <p className="leading-relaxed mb-3">{post.content}</p>
                   <div className="flex items-center flex-wrap ">

@@ -7,7 +7,7 @@ const { userValidator, validate, isResetTokenValid } = require("../middlewares/u
 
 router.post('/register',userValidator,validate,registerUser);
 router.post('/login',loginUser);
-router.get('/verify-email',verifyEmail);
+router.post('/verify-email',verifyEmail);
 router.post("/forgot-password",forgotPassword);
 router.post("/reset-password",isResetTokenValid,resetPassword);
 router.get("/user",verify,getUser);

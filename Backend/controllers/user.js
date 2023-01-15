@@ -35,7 +35,7 @@ exports.registerUser = async (req,res) => {
             html : generateOTPTemplate(OTP)
         })
 
-        res.status(200).json({message : `User Registration Successfull`});
+        res.status(200).json({message : `User Registration Successfull`, userId : newUser._id});
 
     } catch (error) {
         res.status(500).json({error : error.message});
@@ -105,7 +105,7 @@ exports.verifyEmail = async (req,res) => {
     const isMatched = await token.compareToken(OTP);
 
     if(!isMatched){
-        return res.status(400).json({error : `Token is Not Valid`});
+        return res.status(400).json({error : `OTP is Not Valid`});
     }
 
     user.verified = true;

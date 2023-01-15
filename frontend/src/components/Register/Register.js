@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { CheckUser } from '../../store/features/auth/authServices';
 import { STATUSES } from '../../store/features/blog/blogSlice';
 import { useFormik } from 'formik';
-import registerValidation from "../Validation/registerValidation"
+import registerValidation from "../Validation/registerValidation";
+import Verify from './Verify';
 
 const URL = process.env.REACT_APP_BASE_URL;
 
@@ -18,6 +19,11 @@ const initialValues = {
 const Register = () => {
 
     const Navigate = useNavigate();
+    const [user,setUser] = useState({
+        present : false,
+        OTP : "",
+        userId : ""
+    });
 
     const {values , errors , touched , handleBlur, handleChange, handleSubmit} = useFormik({
         initialValues : initialValues,
@@ -27,13 +33,30 @@ const Register = () => {
 
             axios.post(`${URL}/user/register`,{name,email,password}).then((res)=>{
                 CheckUser(STATUSES.SUCCESS,res.data.message);
+                setUser(prev => ({
+                    ...prev, present : true, userId : res.data.userId
+                }));
             }).catch((error)=>{
                 CheckUser(STATUSES.ERROR,error.response.data.error);
-            }); 
-
-            Navigate('/login');
+            });
         }
     });
+
+    const handleOTP = async (e) => {
+        
+        e.preventDefault();
+        const {userId , OTP } = user; 
+
+        try {
+
+            const res = await axios.post(`${URL}/user/verify-email`,{ userId , OTP });
+            CheckUser(STATUSES.SUCCESS,res.data.message);
+            Navigate("/");
+
+        } catch (error) {
+            CheckUser(STATUSES.ERROR,error.response.data.error);
+        }
+    }
 
   return (
     <>
@@ -66,11 +89,28 @@ const Register = () => {
                             <input type="confirm_password" name="confirm_password" id="confirm_password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={values.confirm_password} onChange={handleChange} onBlur={handleBlur} required="" />
                             { errors.confirm_password && touched.confirm_password ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium"> {errors.confirm_password} </span></p>) : null}
                         </div>
+                        {
+                        !user.present ?
+                        <div>
                         <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={handleSubmit}>Create an account</button>
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                        <p className="text-sm mt-4 font-light text-gray-500 dark:text-gray-400">
                             Already have an account? <Link to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
                         </p>
+                        </div> : null
+                        }
                     </form>
+                    {
+                    user.present ? 
+                    <form method='POST' onSubmit={handleOTP} className="space-y-4 md:space-y-6">
+                    <div>
+                            <label htmlFor="verify-email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter OTP</label>
+                            <input type="number" name="OTP" id="OTP" placeholder="Enter OTP" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => setUser( prev => ({
+                                ...prev, OTP : e.target.value
+                            }))} required="" />
+                        </div>
+                        <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={handleOTP}>Verify Email</button>
+                    </form> : null
+                    }
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const ContactUsSchema = new mongoose.Schema({
     email : {
         type : String,
+        lowercase : true,
         required : true
     },
     subject : {

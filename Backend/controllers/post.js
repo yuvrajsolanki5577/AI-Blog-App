@@ -182,6 +182,18 @@ exports.getFeturedPosts = async (req,res) => {
   });
 };
 
+exports.getPostByCategory = async (req,res) => {
+    const { category } = req.query;
+    
+    const post = await Post.find({category});
+
+    if(post.length===0){
+        return res.status(404).json({error : `Post Not Found`})
+    }
+
+    return res.status(200).json({post});
+}
+
 exports.getPosts = async (req,res) => {
     const { pageNo = 0 , limit = 10  } = req.query;
     const  posts = await Post.find({}).sort({createdAt : -1}).skip(parseInt(pageNo) * parseInt(limit)).limit(parseInt(limit)).populate("author");

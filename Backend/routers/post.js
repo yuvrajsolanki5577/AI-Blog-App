@@ -1,5 +1,5 @@
 const express = require("express");
-const { createPost, deletePost, updatePost, getSinglePost, getFeturedPosts, getPosts, searchPost, getRelatedPosts, uploadImage } = require("../controllers/post");
+const { createPost, deletePost, updatePost, getSinglePost, getFeturedPosts, getPosts, searchPost, getRelatedPosts, uploadImage, getPostByCategory } = require("../controllers/post");
 const { parseData } = require("../middlewares");
 const { verify } = require("../middlewares/Authentication");
 const multer = require("../middlewares/multer");
@@ -11,6 +11,7 @@ router.put("/:postId",verify ,multer.single('thumbnail'), parseData , postValida
 router.delete("/:postId" ,verify , deletePost);
 router.get("/single/:postId",getSinglePost);
 router.get("/featured-posts",getFeturedPosts);
+router.get("/category",getPostByCategory);
 router.get("/posts",getPosts);
 router.get("/search",searchPost);
 router.get("/related-posts/:postId",getRelatedPosts);

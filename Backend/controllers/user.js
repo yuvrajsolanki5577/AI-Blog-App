@@ -99,7 +99,7 @@ exports.verifyEmail = async (req,res) => {
     const token = await VerficationToken.findOne({user : user._id});
 
     if(!token){
-        return res.status(400).json({error : `User not Found`});
+        return res.status(400).json({error : `Resend OTP`});
     }
 
     const isMatched = await token.compareToken(OTP);
@@ -154,7 +154,7 @@ exports.forgotPassword = async (req,res) => {
             from : `AiBlogApp@gmail.com`,
             to : user.email,
             subject : "Reset Password",
-            html : forgotPasswordEmailTemplate(`http://localhost:3000/api/user/reset-password?token=${newResetToken.token}&id=${user._id}`)
+            html : forgotPasswordEmailTemplate(`http://localhost:3000/reset-password?token=${newResetToken.token}&id=${user._id}`)
         });
 
         res.status(200).json({message : `Password Reset Link is send to Your Email`});

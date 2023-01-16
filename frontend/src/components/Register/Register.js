@@ -5,7 +5,6 @@ import { CheckUser } from '../../store/features/auth/authServices';
 import { STATUSES } from '../../store/features/blog/blogSlice';
 import { useFormik } from 'formik';
 import registerValidation from "../Validation/registerValidation";
-import Verify from './Verify';
 
 const URL = process.env.REACT_APP_BASE_URL;
 
@@ -13,7 +12,7 @@ const initialValues = {
     name : "",
     email : "",
     password : "",
-    cpassword : ""
+    confirm_password : ""
 }
 
 const Register = () => {
@@ -34,10 +33,10 @@ const Register = () => {
             axios.post(`${URL}/user/register`,{name,email,password}).then((res)=>{
                 CheckUser(STATUSES.SUCCESS,res.data.message);
                 setUser(prev => ({
-                    ...prev, present : true, userId : res.data.userId
+                    ...prev, present : true, userId : res?.data?.userId
                 }));
             }).catch((error)=>{
-                CheckUser(STATUSES.ERROR,error.response.data.error);
+                CheckUser(STATUSES.ERROR,error?.response?.data?.error);
             });
         }
     });
@@ -50,11 +49,11 @@ const Register = () => {
         try {
 
             const res = await axios.post(`${URL}/user/verify-email`,{ userId , OTP });
-            CheckUser(STATUSES.SUCCESS,res.data.message);
+            CheckUser(STATUSES.SUCCESS,res?.data?.message);
             Navigate("/");
 
         } catch (error) {
-            CheckUser(STATUSES.ERROR,error.response.data.error);
+            CheckUser(STATUSES.ERROR,error?.response?.data?.error);
         }
     }
 

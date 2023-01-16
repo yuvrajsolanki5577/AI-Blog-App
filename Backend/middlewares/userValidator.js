@@ -18,7 +18,7 @@ exports.validate = (req,res,next) => {
 }
 
 exports.isResetTokenValid = async (req,res,next) => {
-    const { token , id } = req.query;
+    const { token , id } = req.body;
     if(!token || !id){
         return res.status(404).json({error : `Invalid Token or Id`});
     }

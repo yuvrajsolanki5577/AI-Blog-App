@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import postSchema from "../Validation/postValidation";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const URL = process.env.REACT_APP_BASE_URL;
 
@@ -12,6 +13,7 @@ const NewBlog = () => {
   const [content, setContent] = useState();
   const [inputTags, setTags] = useState();
   const [featured, setFeatured] = useState(false);
+  const Navigate = useNavigate();
 
   const { token } = useSelector((state) => state.auth.user);
   const authorization = `Bearer ${token}`;
@@ -51,6 +53,7 @@ const NewBlog = () => {
           )
           .then((res) => {
             console.log(res);
+            Navigate("/");
           })
           .catch((err) => {
             console.log(err);

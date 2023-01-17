@@ -11,7 +11,7 @@ router.put("/:postId",verify ,multer.single('thumbnail'), parseData , postValida
 router.delete("/:postId" ,verify , deletePost);
 router.get("/single/:postId",getSinglePost);
 router.get("/featured-posts",getFeturedPosts);
-router.get("/category",getPostByCategory);
+router.get("/category/:category",getPostByCategory);
 router.get("/posts",getPosts);
 router.get("/search",searchPost);
 router.get("/related-posts/:postId",getRelatedPosts);

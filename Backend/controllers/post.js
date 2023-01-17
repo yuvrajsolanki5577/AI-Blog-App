@@ -183,15 +183,20 @@ exports.getFeturedPosts = async (req,res) => {
 };
 
 exports.getPostByCategory = async (req,res) => {
-    const { category } = req.query;
+    const { category } = req.params;
     
-    const post = await Post.find({category});
+    const posts = await Post.find({category});
 
-    if(post.length===0){
+    if(posts.length===0){
         return res.status(404).json({error : `Post Not Found`})
     }
 
-    return res.status(200).json({post});
+    res.status(200).json({posts : posts.map((post) => {
+        return ({
+            id : post._id , title : post.title , content : post.content , category : post.category , meta : post.meta , slug : post.slug , tags : post.tags , thumbnail : post.thumbnail?.url , author : post.author
+        })
+    })
+  });
 }
 
 exports.getPosts = async (req,res) => {

@@ -13,6 +13,8 @@ import AiGenerate from "./components/AIGenerated/AiGenerate";
 import Contact from "./components/Contact/Contact";
 import ErrorPage from "./components/404ErrorPage/ErrorPage";
 import Profile from "./components/Profile";
+import Category from "./components/Category/Category";
+import Categories from "./components/Category/Categories";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/category/:categoryName" element={<Category />}/>
+          <Route path="/category/Categories" element={<Categories />}/>
           <Route
             path="/ai-generated"
             element={<ProtectedRoute Component={AiGenerate} />}

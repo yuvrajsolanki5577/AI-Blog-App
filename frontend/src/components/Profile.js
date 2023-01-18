@@ -67,7 +67,9 @@ const Profile = () => {
                 <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="" />
                 <div className="flex flex-col justify-between p-4 leading-normal">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{blog.content}</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  <span dangerouslySetInnerHTML={{__html : (blog?.content).substring(0,100)}}></span>
+                </p>
                 </div>
                 </a>
                 <button className="relative inline-flex items-center justify-center p-0.5 mt-3 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">

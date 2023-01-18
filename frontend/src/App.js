@@ -15,6 +15,7 @@ import ErrorPage from "./components/404ErrorPage/ErrorPage";
 import Profile from "./components/Profile";
 import Category from "./components/Category/Category";
 import Categories from "./components/Category/Categories";
+import Blog from "./components/Blog/Blog";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/category/:categoryName" element={<Category />}/>
           <Route path="/category/Categories" element={<Categories />}/>
+          <Route path="/blog/:postId" element={<Blog />} />
           <Route
             path="/ai-generated"
             element={<ProtectedRoute Component={AiGenerate} />}

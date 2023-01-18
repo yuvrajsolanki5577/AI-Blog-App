@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import Blog from '../Blog/Blog';
+import BlogPost from '../Blog/BlogPost';
 
 const URL = process.env.REACT_APP_BASE_URL;
 
@@ -33,7 +33,7 @@ const Category = () => {
       <div className="flex flex-wrap -m-4">
       {
     posts && posts.map((post) => (
-      <Blog post={post} />
+      <BlogPost key={post.id} post={post} />
     ))
   }
     </div>

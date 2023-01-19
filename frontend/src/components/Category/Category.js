@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import BlogPost from '../Blog/BlogPost';
 
-const URL = process.env.REACT_APP_BASE_URL;
 
 const Category = () => {
 
@@ -14,7 +13,7 @@ const Category = () => {
   useEffect(() => {
     const fetchBlog = async () => {
         try {
-            const res = await axios.get(`${URL}/post/category/${categoryName}`);
+            const res = await axios.get(`/post/category/${categoryName}`);
             setPosts(res.data.posts);
         } catch (error) {
             setError(true);

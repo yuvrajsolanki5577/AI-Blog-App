@@ -6,7 +6,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const URL = process.env.REACT_APP_BASE_URL;
 
 const NewBlog = () => {
   const editor = useRef(null);
@@ -41,23 +40,20 @@ const NewBlog = () => {
     useFormik({
       initialValues: initialValues,
       validationSchema: postSchema,
-      onSubmit: (values) => {
-        const { title, meta, category } = values;
-        const tags = getTags(inputTags);
-        const slug = getSlug(title);
-        axios
-          .post(
-            `${URL}/post/create`,
+      onSubmit : async (values) => {
+        try {
+          const { title, meta, category } = values;
+          const tags = getTags(inputTags);
+          const slug = getSlug(title);
+          await axios.post(
+            `/post/create`,
             { title, meta, slug, tags, content, category ,featured },
             { headers: { authorization } }
-          )
-          .then((res) => {
-            console.log(res);
-            Navigate("/");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+          );
+          Navigate("/");
+        } catch (error) {
+          console.log(error);
+        }
       },
     });
 

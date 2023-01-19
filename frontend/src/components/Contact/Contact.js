@@ -5,8 +5,6 @@ import { useSelector } from 'react-redux';
 import { CheckUser } from '../../store/features/auth/authServices';
 import contactUsSchema from '../Validation/contactUsValidation';
 
-const URL = process.env.REACT_APP_BASE_URL;
-
 const Contact = () => {
     
   const { user } = useSelector((state) => state.auth);
@@ -20,17 +18,15 @@ const Contact = () => {
   const {errors,values, touched, handleBlur, handleChange, handleSubmit, resetForm} = useFormik({
     initialValues : initialValues,
     validationSchema : contactUsSchema,
-    onSubmit : (values , {resetForm}) => {
+    onSubmit : async (values , {resetForm}) => {
         try {
-            const {email, subject, message} = values;
-            axios.post(`${URL}/contactus`,{email, subject, message}).then((res) => {
-                CheckUser("success","Feedback Send Successfully");
-                resetForm();
-            }).catch((err) => {
-                CheckUser("error","Server Error");
-            })
-        } catch (error) {
+              const {email, subject, message} = values;
+              const res = await axios.post(`${URL}/contactus`,{email, subject, message});
+              CheckUser("success","Feedback Send Successfully");
+              resetForm();
+          } catch (error) {
             console.log(error);
+            CheckUser("error","Server Error");
         }
     }
   });

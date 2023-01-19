@@ -3,14 +3,12 @@ import Swal from "sweetalert2";
 import { ResetUser, setMessage, setUser, setUserStatus } from "../../features/auth/authSlice";
 import { STATUSES } from "../blog/blogSlice";
 
-const URL = process.env.REACT_APP_BASE_URL;
-
 export function loginUser(input){
     return async function loginUserThunk (dispatch,getState){
         dispatch(setUserStatus(STATUSES.LOADING));
         try {
             const {email,password} = input;
-            const res = await axios.post(`${URL}/user/login`,{email,password});
+            const res = await axios.post(`/user/login`,{email,password});
             if(res){
                 const { name, email , message , token} = res.data;
                 const user = { user : name , token , email};

@@ -6,8 +6,6 @@ import { CheckUser } from '../../store/features/auth/authServices';
 import { STATUSES } from '../../store/features/blog/blogSlice';
 import resetPasswordSchema from '../Validation/resetPasswordValidation';
 
-const URL = process.env.REACT_APP_BASE_URL;
-
 const initialValues = {
     password : "",
     confirm_password : ""
@@ -23,6 +21,7 @@ const ResetPassword = () => {
     validationSchema : resetPasswordSchema,
     onSubmit : async (values) => {
         try {
+            
             const password = values.password;
             const token = query.get("token");
             const id = query.get("id");
@@ -31,6 +30,7 @@ const ResetPassword = () => {
             CheckUser(STATUSES.SUCCESS,res.data.message);
             
             Navigate("/login");
+
         } catch (error) {
             CheckUser(STATUSES.ERROR,error?.response?.data?.error);
         }
@@ -69,4 +69,4 @@ const ResetPassword = () => {
   )
 }
 
-export default ResetPassword
+export default ResetPassword;

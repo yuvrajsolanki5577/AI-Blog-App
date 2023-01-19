@@ -2,8 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom';
 
-const URL = process.env.REACT_APP_BASE_URL;
-
 const Blog = () => {
 
   const { postId } = useParams();
@@ -13,7 +11,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlog = async () => {
         try {
-            const res = await axios.get(`${URL}/post/single/${postId}`);
+            const res = await axios.get(`/post/single/${postId}`);
             // console.log(res);
             setPost(res.data.Post)
         } catch (error) {

@@ -6,8 +6,6 @@ import { STATUSES } from '../../store/features/blog/blogSlice';
 import { useFormik } from 'formik';
 import registerValidation from "../Validation/registerValidation";
 
-const URL = process.env.REACT_APP_BASE_URL;
-
 const initialValues = {
     name : "",
     email : "",
@@ -27,17 +25,19 @@ const Register = () => {
     const {values , errors , touched , handleBlur, handleChange, handleSubmit} = useFormik({
         initialValues : initialValues,
         validationSchema : registerValidation,
-        onSubmit : (values) => {
-            const {name , email, password} = values;
+        onSubmit : async (values) => {
+            try {
+                const {name , email, password} = values;
 
-            axios.post(`${URL}/user/register`,{name,email,password}).then((res)=>{
-                CheckUser(STATUSES.SUCCESS,res.data.message);
-                setUser(prev => ({
-                    ...prev, present : true, userId : res?.data?.userId
+                const res = await axios.post(`/user/register`,{name,email,password});
+                    CheckUser(STATUSES.SUCCESS,res.data.message);
+                    setUser(prev => ({
+                        ...prev, present : true, userId : res?.data?.userId
                 }));
-            }).catch((error)=>{
+
+            } catch (error) {
                 CheckUser(STATUSES.ERROR,error?.response?.data?.error);
-            });
+            }
         }
     });
 
@@ -48,7 +48,7 @@ const Register = () => {
 
         try {
 
-            const res = await axios.post(`${URL}/user/verify-email`,{ userId , OTP });
+            const res = await axios.post(`/user/verify-email`,{ userId , OTP });
             CheckUser(STATUSES.SUCCESS,res?.data?.message);
             Navigate("/");
 

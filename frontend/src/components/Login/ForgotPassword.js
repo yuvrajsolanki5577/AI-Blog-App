@@ -4,24 +4,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CheckUser } from '../../store/features/auth/authServices';
 import { STATUSES } from '../../store/features/blog/blogSlice';
 
-const URL = process.env.REACT_APP_BASE_URL;
-
 const ForgotPassword = () => {
 
   const Navigate = useNavigate();
   const [email , setEmail] = useState("");
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     
     try {
-      const res = await axios.post(`${URL}/user/forgot-password`,{email});
+      const res = await axios.post(`/user/forgot-password`,{email});
       CheckUser(STATUSES.SUCCESS,res.data.message);
     } catch (error) {
       CheckUser(STATUSES.ERROR,error.response.data.error);
     }
-    
+
     Navigate('/login');
+    
   }  
 
   return (

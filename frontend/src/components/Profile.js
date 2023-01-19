@@ -2,8 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-const URL = process.env.REACT_APP_BASE_URL;
-
 const Profile = () => {
 
   const {token} = useSelector((state) => state.auth.user);
@@ -15,7 +13,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
         try {
-            const res = await axios.get(`${URL}/user/user`, { headers : {authorization} });
+            const res = await axios.get(`/user/user`, { headers : {authorization} });
             setUser(res.data.user);
             setBlogs(res.data.user.blogs);
         } catch (error) {
@@ -59,6 +57,11 @@ const Profile = () => {
         </h1>
         <div className="container border-double border-4 border-sky-500 m-5 p-5 mx-auto">
         <div className="flex flex-wrap justify-center">
+
+        {
+          (blogs.length===0) ? <h2 className="mb-4 m-5 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"> No Post Found </h2> : null
+        }
+
         {
           blogs.map((blog) => {
             return (

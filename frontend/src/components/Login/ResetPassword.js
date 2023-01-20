@@ -26,7 +26,7 @@ const ResetPassword = () => {
             const token = query.get("token");
             const id = query.get("id");
 
-            const res = await axios.post(`${URL}/user/reset-password`, {id, token ,password});
+            const res = await axios.post(`/user/reset-password`, {id, token ,password});
             CheckUser(STATUSES.SUCCESS,res.data.message);
             
             Navigate("/login");

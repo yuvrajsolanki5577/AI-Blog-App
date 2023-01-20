@@ -29,7 +29,7 @@ const Profile = () => {
 
   const deleteBlog = async (blogid) => {
     try {
-      const res = await axios.delete(`${URL}/post/${blogid}`, { headers : {authorization} });
+      const res = await axios.delete(`/post/${blogid}`, { headers : {authorization} });
       console.log(res);
     } catch (error) {
       console.log(error);

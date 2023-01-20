@@ -15,13 +15,13 @@ const Contact = () => {
     message : ""
   }
 
-  const {errors,values, touched, handleBlur, handleChange, handleSubmit, resetForm} = useFormik({
+  const {errors,values, touched, handleBlur, handleChange, handleSubmit} = useFormik({
     initialValues : initialValues,
     validationSchema : contactUsSchema,
     onSubmit : async (values , {resetForm}) => {
         try {
               const {email, subject, message} = values;
-              const res = await axios.post(`${URL}/contactus`,{email, subject, message});
+              await axios.post(`/contactus`,{email, subject, message});
               CheckUser("success","Feedback Send Successfully");
               resetForm();
           } catch (error) {

@@ -1,41 +1,34 @@
 import React, { useState } from 'react';
-import { Configuration, OpenAIApi }  from "openai";
+import { useDispatch, useSelector } from 'react-redux';
+import { AIGenerate } from '../../store/features/AI/AIServices';
+import { STATUSES } from '../../store/features/blog/blogSlice';
 
-const configuration = new Configuration({
-  apiKey : process.env.REACT_APP_OPENAI_API_KEYS,
-});
-
-const openai = new OpenAIApi(configuration);
-
-const AiGenerate = () => {
+const AiTitleGenerate = () => {
 
   const[input, setInput] = useState();
-  const[ans, setans] = useState();
+
+  const { blog , status } = useSelector((state) => state.AI);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-
+      
       e.preventDefault();
       console.log(`Generate blog topics on : ${input}`);
-      openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Generate blog topics on : ${input}`,
-        temperature: 0.8,
-        max_tokens: 100,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      }).then((res) => {
-          console.log(res);
-          setans(res.data.choices[0].text);
-      }).catch((error) => {
-          console.log(error);
-      });
+      const values = {
+        command : `Generate blog topics on `,
+        input : input,
+        words : 100
+      }
+      
+      dispatch(AIGenerate(values));
+
   }
 
   return (
-    <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
+    <section className="mx-auto mt-10 w-12/12 flex bg-gray-50 mb-6 dark:bg-gray-900">
+    <div className="px-6 py-8 mx-auto md:h-screen mb-6 lg:py-0">
       <h1 className='flex items-center mb-6 text-gray-900 dark:text-white text-3xl font-bold underline'>
-        Ai Generated Page
+        AI Title Generator
       </h1>
       <form method='POST'>   
         <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -47,9 +40,18 @@ const AiGenerate = () => {
             <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={handleSubmit}> Search </button>
         </div>
     </form>
-    <p className="leading-relaxed m-5 text-gray-200 mb-6">{ans}</p>
-    </div>
+        {
+          (STATUSES.LOADING===status) && <h1 className='flex m-5 items-center mb-6 text-gray-900 dark:text-white text-3xl font-bold underline'> Loading ...</h1>
+        }
+        {
+          blog &&
+          <div className="w-full mt-4 bg-white rounded-lg p-4 shadow dark:border md:mt-10 sm:max-w-md xl:p-4 dark:bg-gray-800 dark:border-gray-700">
+            <p className="leading-relaxed m-5 text-gray-200 mb-6"> {blog} </p>
+        </div>
+        }
+      </div>
+    </section>
   )
 }
 
-export default AiGenerate;
+export default AiTitleGenerate;

@@ -22,7 +22,13 @@ app.use("/api",contactUsrouter);
 const PORT =  process.env.PORT || 3100;
 
 app.get("/", (req,res) => {
-    res.send("Hello Shubham & Sakshi");
+    res.send("Hello Shubham & Sakshi || Welcom to AI Blog App Backend !!");
+})
+
+app.get("*", (req,res) => {
+    res.status(404).send({
+        error : `404 Error Occured || URL Not Found !!`
+    });
 })
 
 app.listen(PORT, ()=> {

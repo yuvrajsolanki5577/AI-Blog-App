@@ -9,13 +9,14 @@ import ForgotPassword from "./components/Login/ForgotPassword";
 import ResetPassword from "./components/Login/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NewBlog from "./components/Blog/NewBlog";
-import AiGenerate from "./components/AIGenerated/AiGenerate";
+import AiTitleGenerate from "./components/AIGenerated/AiTitleGenerate";
 import Contact from "./components/Contact/Contact";
 import ErrorPage from "./components/404ErrorPage/ErrorPage";
 import Profile from "./components/Profile";
 import Category from "./components/Category/Category";
 import Categories from "./components/Category/Categories";
 import Blog from "./components/Blog/Blog";
+import AiBlogGenerate from "./components/AIGenerated/AiBlogGenerate";
 
 function App() {
   return (
@@ -34,8 +35,12 @@ function App() {
           <Route path="/category/Categories" element={<Categories />}/>
           <Route path="/blog/:postId" element={<Blog />} />
           <Route
-            path="/ai-generated"
-            element={<ProtectedRoute Component={AiGenerate} />}
+            path="/ai-title-generator"
+            element={<ProtectedRoute Component={AiTitleGenerate} />}
+          />
+          <Route
+            path="/ai-blog-generator"
+            element={<ProtectedRoute Component={AiBlogGenerate} />}
           />
           <Route
             path="/new-blog"

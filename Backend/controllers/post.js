@@ -40,6 +40,7 @@ exports.createPost = async (req,res) => {
         const { title , meta , content , slug , tags , category , featured }  = req.body;
         const author = req.User_id;
         const {file} = req;
+        // console.log(req);
         
         const isAlreadyExists = await Post.findOne({slug});
 
@@ -205,7 +206,7 @@ exports.getPosts = async (req,res) => {
     
     res.status(200).json({posts : posts.map((post) => {
         return ({
-            id : post._id , title : post.title , content : post.content , category : post.category , meta : post.meta , slug : post.slug , tags : post.tags , thumbnail : post.thumbnail?.url , author : post.author
+            id : post._id , title : post.title , content : post.content , category : post.category , meta : post.meta , slug : post.slug , tags : post.tags , thumbnail : post.thumbnail?.url , author : post.author, date : post.createdAt
         })
     })
   });

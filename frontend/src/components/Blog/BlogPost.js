@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 const BlogPost = ({post}) => {
-  
   return (
     <div key={post.id} className="p-4 md:w-1/3">
               <div className="h-full border-2 border-gray-800 rounded-lg overflow-hidden">
@@ -10,8 +9,11 @@ const BlogPost = ({post}) => {
                 <div className="p-6">
                   <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{post.category ? (post.category).toUpperCase() : "Category"}</h2>
                   <h1 className="title-font text-lg font-medium text-white mb-3">{post.title}</h1>
-                  <p className="leading-relaxed mb-3">
+                  {/* <p className="leading-relaxed mb-3">
                     <span dangerouslySetInnerHTML={{__html : (post.content).substring(0,50)}}></span>
+                  </p> */}
+                  <p className="leading-relaxed mb-3">
+                    {post.meta}
                   </p>
                   <div className="flex items-center flex-wrap ">
                     <Link to={`/blog/${post.id}`} className="text-indigo-400 inline-flex items-center md:mb-2 lg:mb-0">Read More
@@ -35,8 +37,8 @@ const BlogPost = ({post}) => {
                   <div className="flex items-center mt-4">
                     <img className="w-10 h-10 rounded-full mr-4" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="Avatar of Jonathan Reinink" />
                     <div className="text-sm">
-                      <p className="text-gray-200 leading-none">Shubham Jain</p>
-                      <p className="text-gray-200">28 May</p>
+                      <p className="text-gray-200 leading-none">{post?.author?.name}</p>
+                      <p className="text-gray-200">{post?.date}</p>
                     </div>
                   </div>
                 </div>

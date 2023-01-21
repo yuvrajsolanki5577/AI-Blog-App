@@ -1,35 +1,25 @@
 import React, { useState } from 'react';
-import { Configuration, OpenAIApi }  from "openai";
-
-const configuration = new Configuration({
-  apiKey : process.env.REACT_APP_OPENAI_API_KEYS,
-});
-
-const openai = new OpenAIApi(configuration);
+import { useDispatch, useSelector } from 'react-redux';
+import { AIGenerate } from '../../store/features/AI/AIServices';
+import { STATUSES } from '../../store/features/blog/blogSlice';
 
 const AiBlogGenerate = () => {
 
+  const { blog , status } = useSelector((state) => state.AI);
+  const dispatch = useDispatch();
   const[input, setInput] = useState();
-  const[ans, setans] = useState();
 
   const handleSubmit = (e) => {
 
       e.preventDefault();
-      console.log(`Generate blog on : ${input} of 1500+ Lines`);
-      openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Generate blog on : ${input} of 1500+ Lines`,
-        temperature: 0.8,
-        max_tokens: 2000,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      }).then((res) => {
-          console.log(res);
-          setans(res.data.choices[0].text);
-      }).catch((error) => {
-          console.log(error);
-      });
+
+      const values = {
+        command : `Generate blog on `,
+        input : input,
+        words : 2000
+      }
+
+      dispatch(AIGenerate(values));
   }
 
   return (
@@ -49,9 +39,12 @@ const AiBlogGenerate = () => {
         </div>
     </form>
         {
-        ans &&
+          (STATUSES.LOADING===status) && <h1 className='flex m-5 items-center mb-6 text-gray-900 dark:text-white text-3xl font-bold underline'> Loading ...</h1>
+        }
+        {
+        blog &&
         <div className="w-full mt-4 bg-white rounded-lg p-4 shadow dark:border md:mt-10 sm:max-w-md xl:p-4 dark:bg-gray-800 dark:border-gray-700">
-            <p className="leading-relaxed m-5 text-gray-200 mb-6"> {ans} </p>
+            <p className="leading-relaxed m-5 text-gray-200 mb-6"> {blog} </p>
         </div>
         }
         </div>

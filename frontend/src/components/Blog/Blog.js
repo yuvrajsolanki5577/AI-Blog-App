@@ -36,6 +36,9 @@ const Blog = () => {
         <div className="text-center lg:w-2/3 w-full">
         <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">{post?.title}</h1>
         <p className="leading-relaxed text-gray-200 mb-8">
+            {post?.meta}
+        </p>
+        <p className="leading-relaxed text-gray-200 mb-8">
             <span className='text-gray-100' dangerouslySetInnerHTML={{__html : (post?.content)}}></span>
         </p>
         <div className="flex justify-center">

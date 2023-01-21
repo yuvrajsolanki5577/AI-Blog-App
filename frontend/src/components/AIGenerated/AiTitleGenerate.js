@@ -13,7 +13,7 @@ const AiTitleGenerate = () => {
   const handleSubmit = (e) => {
       
       e.preventDefault();
-      console.log(`Generate blog topics on : ${input}`);
+      
       const values = {
         command : `Generate blog topics on `,
         input : input,
@@ -21,7 +21,6 @@ const AiTitleGenerate = () => {
       }
       
       dispatch(AIGenerate(values));
-
   }
 
   return (

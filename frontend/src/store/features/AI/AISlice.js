@@ -19,9 +19,15 @@ const AISlice = createSlice({
 
         setStatus(state,action){
             state.status = action.payload;
+        },
+
+        resetBlog(state,action){
+            state.blog = ""
+            state.status = STATUSES.IDLE
         }
+        
     }
 });
 
-export const { setBlog, setStatus} = AISlice.actions;
+export const { setBlog, setStatus, resetBlog} = AISlice.actions;
 export default AISlice.reducer;

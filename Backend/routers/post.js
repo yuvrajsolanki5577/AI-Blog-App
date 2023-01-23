@@ -6,6 +6,26 @@ const multer = require("../middlewares/multer");
 const { postValidators, validate } = require("../middlewares/postValidator");
 const router = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Blogs API
+ *   description: Blog Managing API
+ * /api/post/posts:
+ *   get:
+ *     summary: Get All Posts
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: The book response by id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: The book was not found
+ */
+
 router.post("/create", verify , multer.single('thumbnail'), parseData , postValidators , validate , createPost);
 router.put("/:postId",verify ,multer.single('thumbnail'), parseData , postValidators , validate ,updatePost);
 router.delete("/:postId" ,verify , deletePost);

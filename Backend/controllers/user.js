@@ -51,7 +51,7 @@ exports.loginUser = async (req,res) => {
             return res.status(400).json({ error : `Email - Password is Missing !!`});
         }
 
-        const user = await User.findOne({email});
+        const user = await User.findOne({email}).select("+password");
 
         if(!user){
             return res.status(400).json({ error : `User Not Found !!`});
@@ -168,7 +168,7 @@ exports.forgotPassword = async (req,res) => {
 exports.resetPassword = async (req,res) => {
     const {password} = req.body;
     
-    const user = await User.findById(req.users._id);
+    const user = await User.findById(req.users._id).select("+password");
 
     if(!user){
         return res.status(404).json({error : `User Not Found`});

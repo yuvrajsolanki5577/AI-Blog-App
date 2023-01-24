@@ -17,13 +17,134 @@ const router = express.Router();
  *     tags: [Blogs]
  *     responses:
  *       200:
- *         description: The book response by id
+ *         description: Get All Posts
  *         contens:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Book'
  *       404:
- *         description: The book was not found
+ *         description: No Post Found
+ * /api/post/{id}:
+ *   get:
+ *     summary: Get Post By Id
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: Get Post By Id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: No Post Found
+*   put:
+ *    summary: Update the book by the id
+ *    tags: [Blogs]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The Blog of Id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Book'
+ *    responses:
+ *      200:
+ *        description: The blog was updated Successfull
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Book'
+ *      404:
+ *        description: The blog was not found
+ *      500:
+ *        description: Some error happened
+ *   delete:
+ *     summary: Remove the blog by id
+ *     tags: [Blogs]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The blog id
+ *
+ *     responses:
+ *       200:
+ *         description: The blog was deleted Successfull
+ *       404:
+ *         description: The blog was not found
+ * /api/post/featured-post:
+ *   get:
+ *     summary: Get featured Post By Id
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: Get featured Post By Id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: No Post Found
+ * /api/post/category/{category Name}:
+ *   get:
+ *     summary: Get Post By Category Name
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: Get Post By Category Name
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: No Post Found
+ * /api/post/search:
+ *   get:
+ *     summary: Search Post By Name
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: Get Post By Name
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: No Post Found
+ * /api/post/related-post/{id}:
+ *   get:
+ *     summary: Get Related Post By Id
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: Get Realated Post By Id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: No Post Found
+ * /api/post/upload-image:
+ *   post:
+ *     summary: Upload Image and get Cloudinary URL
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: Upload Image and get Cloudinary URL
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: No Post Found
  */
 
 router.post("/create", verify , multer.single('thumbnail'), parseData , postValidators , validate , createPost);

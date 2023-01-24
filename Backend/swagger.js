@@ -18,7 +18,7 @@ const options = {
         }
       },
     },
-    apis: ["./routers/*.js"], // files containing annotations as above
+    apis: ["./routers/*.js","./models/*js"], // files containing annotations as above
   };
 
 const swaggerDocs = swaggerJSDoc(options);

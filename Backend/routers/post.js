@@ -11,19 +11,25 @@ const router = express.Router();
  * tags:
  *   name: Blogs API
  *   description: Blog Managing API
- * /api/post/posts:
- *   get:
- *     summary: Get All Posts
+ * /api/post/create:
+ *   post:
+ *     summary: Create New Post
  *     tags: [Blogs]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '../models/Users.js'
  *     responses:
  *       200:
- *         description: Get All Posts
- *         contens:
+ *         description: User Registration Successfull !!.
+ *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Book'
- *       404:
- *         description: No Post Found
+ *               $ref: '../models/Users.js'
+ *       500:
+ *         description: Some server error
  * /api/post/{id}:
  *   get:
  *     summary: Get Post By Id
@@ -37,8 +43,8 @@ const router = express.Router();
  *               $ref: '#/components/schemas/Book'
  *       404:
  *         description: No Post Found
-*   put:
- *    summary: Update the book by the id
+ *   put:
+ *    summary: Update Post by id
  *    tags: [Blogs]
  *    parameters:
  *      - in: path
@@ -65,7 +71,7 @@ const router = express.Router();
  *      500:
  *        description: Some error happened
  *   delete:
- *     summary: Remove the blog by id
+ *     summary: Delete Post by id
  *     tags: [Blogs]
  *     parameters:
  *       - in: path
@@ -74,15 +80,28 @@ const router = express.Router();
  *           type: string
  *         required: true
  *         description: The blog id
- *
+*
  *     responses:
  *       200:
  *         description: The blog was deleted Successfull
  *       404:
  *         description: The blog was not found
+ * /api/post/posts:
+ *   get:
+ *     summary: Get All Posts
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: Get All Posts
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: No Post Found
  * /api/post/featured-post:
  *   get:
- *     summary: Get featured Post By Id
+ *     summary: Get featured Post 
  *     tags: [Blogs]
  *     responses:
  *       200:

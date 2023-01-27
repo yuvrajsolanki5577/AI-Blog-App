@@ -5,6 +5,7 @@ import postSchema from "../Validation/postValidation";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import FormData from "form-data";
 
 
 const NewBlog = () => {
@@ -12,6 +13,7 @@ const NewBlog = () => {
   const [content, setContent] = useState();
   const [inputTags, setTags] = useState();
   const [featured, setFeatured] = useState(false);
+  const [thumbnail, setThumbnail] = useState();
   const Navigate = useNavigate();
 
   const { token } = useSelector((state) => state.auth.user);
@@ -21,7 +23,6 @@ const NewBlog = () => {
     title: "",
     meta: "",
     category: "Normal",
-    // thumbnail : ""
   };
 
   const getSlug = (title) => {
@@ -43,20 +44,26 @@ const NewBlog = () => {
       validationSchema: postSchema,
       onSubmit : async (values) => {
         try {
-          const { title, meta, thumbnail, category } = values;
+          // const { title, meta, category } = values;
+          const finalPost = { ...values, tags , slug , thumbnail}
           const tags = getTags(inputTags);
           const slug = getSlug(title);
-          await axios.post(
-            `/post/create`,
-            { title, meta, slug, thumbnail , tags, content, category ,featured },
-            { headers: { authorization } }
-          );
-          Navigate("/");
+          const data = new FormData();
+          data.append("thumbnail",thumbnail);
+          console.log(data);
+          // await axios.post(
+            // `/post/create`,
+            // { title, meta, slug, tags, content, category ,featured,formData},
+            // { headers: { authorization } }
+          // );
+          // Navigate("/");
         } catch (error) {
           console.log(error);
         }
       },
     });
+
+    // console.log(thumbnail);
 
   return (
     <section className="mx-auto w-12/12 flex bg-gray-50 mb-6 dark:bg-gray-900">
@@ -91,8 +98,8 @@ const NewBlog = () => {
               ) : null}
             </div>
             <div>
-              {/* 
-              // image Upload
+              
+              {/* // image Upload */}
               <div className="flex items-center mt-5 mb-5 justify-center w-full">
               <label htmlFor="thumbnail" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -100,9 +107,9 @@ const NewBlog = () => {
                       <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                   </div>
-                  <input id="thumbnail" type="file" className="hidden" onChange={handleChange} />
+                  <input id="thumbnail" type="file" className="hidden" onChange={(e) => setThumbnail(e.target.files[0])} />
               </label>
-          </div>  */}
+          </div> 
               <label
                 htmlFor="meta"
                 className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"

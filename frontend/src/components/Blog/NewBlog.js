@@ -44,19 +44,22 @@ const NewBlog = () => {
       validationSchema: postSchema,
       onSubmit : async (values) => {
         try {
-          // const { title, meta, category } = values;
-          const finalPost = { ...values, tags , slug , thumbnail}
+          const { title, meta, category } = values;
           const tags = getTags(inputTags);
           const slug = getSlug(title);
-          const data = new FormData();
-          data.append("thumbnail",thumbnail);
-          console.log(data);
-          // await axios.post(
-            // `/post/create`,
-            // { title, meta, slug, tags, content, category ,featured,formData},
-            // { headers: { authorization } }
-          // );
-          // Navigate("/");
+
+          const finalPost = { title , meta , category , content , tags, slug , featured , thumbnail };
+          const formData = new FormData();
+          for(let key in finalPost){
+            formData.append(key, finalPost[key]);
+          }
+
+          await axios.post(
+            `/post/create`,
+            formData ,
+            { headers: { authorization } }
+          );
+          Navigate("/");
         } catch (error) {
           console.log(error);
         }
@@ -97,19 +100,29 @@ const NewBlog = () => {
                 </p>
               ) : null}
             </div>
-            <div>
               
-              {/* // image Upload */}
+            <label className="block text-sm font-medium text-gray-900 mt-4 dark:text-white" htmlFor="user_avatar">Uploaded Thumbnail</label>
+            {
+              // image Upload
+              !thumbnail && 
               <div className="flex items-center mt-5 mb-5 justify-center w-full">
               <label htmlFor="thumbnail" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload </span> or drag and drop</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Thumbnail for Blog</p>
                   </div>
                   <input id="thumbnail" type="file" className="hidden" onChange={(e) => setThumbnail(e.target.files[0])} />
               </label>
-          </div> 
+              </div>
+            }
+            {
+              thumbnail && 
+              <>
+                <input type="text" id="disabled-input-2" aria-label="disabled input 2" className="bg-gray-100 border border-gray-300 text-gray-900 mt-2 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" value={thumbnail.name} disabled readOnly />
+              </>
+            }  
+            <div>
               <label
                 htmlFor="meta"
                 className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"

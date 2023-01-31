@@ -32,7 +32,7 @@ const Home = () => {
           <BlogPost key={post.id} post={post} />
         ))
       }
-            <div className="p-4 md:w-1/3">
+            {/* <div className="p-4 md:w-1/3">
               <div className="h-full border-2 border-gray-800 rounded-lg overflow-hidden">
                 <img className="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog" />
                 <div className="p-6">
@@ -60,7 +60,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

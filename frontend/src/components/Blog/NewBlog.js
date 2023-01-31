@@ -59,6 +59,7 @@ const NewBlog = () => {
             formData ,
             { headers: { authorization } }
           );
+
           Navigate("/");
         } catch (error) {
           console.log(error);

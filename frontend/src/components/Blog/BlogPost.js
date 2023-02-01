@@ -7,7 +7,7 @@ const BlogPost = ({post}) => {
               <div className="h-full border-2 border-gray-800 rounded-lg overflow-hidden">
                 <img className="lg:h-48 md:h-36 w-full object-cover object-center" src={post.thumbnail ? post.thumbnail : "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=820&q=80"} alt="blog" />
                 <div className="p-6">
-                  <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{post.category ? (post.category).toUpperCase() : "Category"}</h2>
+                  <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{post?.category ? (post?.category).toUpperCase() : "Category"}</h2>
                   <h1 className="title-font text-lg font-medium text-white mb-3">{post.title}</h1>
                   {/* <p className="leading-relaxed mb-3">
                     <span dangerouslySetInnerHTML={{__html : (post.content).substring(0,50)}}></span>

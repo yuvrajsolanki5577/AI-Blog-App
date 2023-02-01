@@ -186,7 +186,7 @@ exports.getFeturedPosts = async (req,res) => {
 exports.getPostByCategory = async (req,res) => {
     const { category } = req.params;
     
-    const posts = await Post.find({category});
+    const posts = await Post.find({category}).populate("author");
 
     if(posts.length===0){
         return res.status(404).json({error : `Post Not Found`})

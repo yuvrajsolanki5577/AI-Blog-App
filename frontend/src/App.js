@@ -17,6 +17,7 @@ import Category from "./components/Category/Category";
 import Categories from "./components/Category/Categories";
 import Blog from "./components/Blog/Blog";
 import AiBlogGenerate from "./components/AIGenerated/AiBlogGenerate";
+import EditProfile from "./components/EditProfile";
 
 function App() {
   return (
@@ -49,6 +50,10 @@ function App() {
           <Route
             path="/profile"
             element={<ProtectedRoute Component={Profile} />}
+          />
+          <Route
+            path="/edit-profile"
+            element={<ProtectedRoute Component={EditProfile} />}
           />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

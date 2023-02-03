@@ -1,18 +1,36 @@
+import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 
-const initialValues = {
-    name : "",
-    description : "",
-}
-
 const EditProfile = () => {
+
+    const { token } = useSelector((state) => state.auth.user);
+    const authorization = `Bearer ${token}`;
 
     const [image, setImage] = useState();
     const [profile, setProfile] = useState();
+    const [user, setUser] = useState();
     
+    const initialValues = {
+        name : "",
+        description : "",
+    }
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await axios.get(`/user/user`, { headers : {authorization} });
+                setUser(res.data.user);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchUser();
+    }, []);
+
     const {values , errors , touched ,handleBlur, handleChange, handleSubmit} = useFormik({
         initialValues : initialValues,
         validationSchema : Yup.object({
@@ -20,7 +38,7 @@ const EditProfile = () => {
             description : Yup.string().min(20).max(100)
         }),
         onSubmit : (values) => {
-            
+            console.log(values);
         }
     });
 
@@ -39,7 +57,7 @@ const EditProfile = () => {
         <div className="flex flex-col items-center pb-10">
         <img className="w-24 h-24 mt-5 mb-5 rounded-full shadow-lg" src={profile ? profile : "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"} alt="Bonnie image"/>
         <form method='POST' onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-                    <label htmlFor="file_input" className="block text-sm font-medium text-gray-900 dark:text-white">Upload File</label>
+                    <label htmlFor="file_input" className="block text-sm font-medium text-gray-900 dark:text-white">Upload Profile Photo</label>
                     <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" onChange={handleImage} />
                     <div>
                       <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Name </label>

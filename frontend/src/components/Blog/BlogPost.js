@@ -37,7 +37,7 @@ const BlogPost = ({post}) => {
                   <div className="flex items-center mt-4">
                     {/* <img className="w-10 h-10 rounded-full mr-4" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="Avatar of Jonathan Reinink" /> */}
                     <div><strong> Author : </strong></div>
-                    <div className="text-sm ml-2">
+                    <div className="text-sm mt-0.5 ml-2">
                       <p className="text-gray-200 leading-none">{(post?.author?.name).toUpperCase()}</p>
                       {/* <p className="text-gray-200">{post?.date}</p> */}
                     </div>

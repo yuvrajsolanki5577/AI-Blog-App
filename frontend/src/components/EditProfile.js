@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import FormData from "form-data";
 
 const EditProfile = () => {
 
@@ -24,6 +25,7 @@ const EditProfile = () => {
             try {
                 const res = await axios.get(`/user/user`, { headers : {authorization} });
                 setUser(res.data.user);
+                // console.log(res.data.user);
             } catch (error) {
                 console.log(error);
             }
@@ -31,14 +33,25 @@ const EditProfile = () => {
         fetchUser();
     }, []);
 
-    const {values , errors , touched ,handleBlur, handleChange, handleSubmit} = useFormik({
+    const { errors , touched ,handleBlur, handleChange, handleSubmit} = useFormik({
         initialValues : initialValues,
         validationSchema : Yup.object({
             name : Yup.string().min(2).max(20).required("Please Enter Your Name"),
             description : Yup.string().min(20).max(100)
         }),
-        onSubmit : (values) => {
+        onSubmit : async (values) => {
             console.log(values);
+            console.log(image);
+
+            const { name, description} = values;
+            const finalData = { name, description, image };
+            const formData = new FormData();
+            for(let key in finalData){
+                formData.append(key, finalData[key]);
+            }
+
+            const responce = await axios.patch(`/user/user`,formData);
+            console.log(responce.data);
         }
     });
 
@@ -61,12 +74,12 @@ const EditProfile = () => {
                     <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" onChange={handleImage} />
                     <div>
                       <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Name </label>
-                      <input type="name" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" value={values.name} onChange={handleChange} onBlur={handleBlur} required="" />
+                      <input type="name" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Name" onChange={handleChange} onBlur={handleBlur} required="" defaultValue={user?.name} />
                       { errors.name && touched.name ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium"> {errors.name} </span></p>) : null}            
                   </div>
                   <div>
                       <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Description</label>
-                      <input type="description" name="description" id="description" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" value={values.description} onChange={handleChange} onBlur={handleBlur} required="" />
+                      <input type="description" name="description" id="description" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Description" onChange={handleChange} onBlur={handleBlur} required="" defaultValue={user?.description} />
                       { errors.description && touched.description ? (<p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium"> {errors.description} </span></p>) : null}
                   </div>
                   <div>

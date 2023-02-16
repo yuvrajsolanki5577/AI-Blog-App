@@ -4,6 +4,7 @@ const { generateOTP, mailTransport, generateOTPTemplate, forgotPasswordEmailTemp
 const VerficationToken = require("../models/verificationToken");
 const { isValidObjectId } = require("mongoose");
 const ResetToken = require("../models/resetToken");
+const cloudinary = require("../cloud/index");
 
 exports.registerUser = async (req,res) => {
     try {
@@ -40,6 +41,28 @@ exports.registerUser = async (req,res) => {
     } catch (error) {
         res.status(500).json({error : error.message});
     }
+}
+
+exports.editProfile = async (req,res) => {
+    const { name, email, description } = req.body;
+    const {file} = req;
+
+    const user = User.findOne({email});
+
+    user.name = name;
+    user.description = description;
+
+    if(file){
+        const {secure_url : url , public_id} =  await cloudinary.uploader.upload(file.path);
+        user.profile = { url , public_id};
+    }
+
+    user.save();
+
+    return res.status(200).json({
+        message : `Edit Profile Successfull`
+    });
+
 }
 
 exports.loginUser = async (req,res) => {

@@ -40,7 +40,6 @@ exports.createPost = async (req,res) => {
         const { title , meta , content , slug , tags , category , featured }  = req.body;
         const author = req.User_id;
         const {file} = req;
-        // console.log(file);
         
         const isAlreadyExists = await Post.findOne({slug});
 

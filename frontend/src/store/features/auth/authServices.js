@@ -10,8 +10,8 @@ export function loginUser(input){
             const {email,password} = input;
             const res = await axios.post(`/user/login`,{email,password});
             if(res){
-                const { name, email , message , token} = res.data;
-                const user = { user : name , token , email};
+                const { name, email , message , token, profile} = res.data;
+                const user = { user : name , token , email, profile};
                 localStorage.setItem('user',JSON.stringify(user));
                 dispatch(setUserStatus(STATUSES.SUCCESS));
                 dispatch(setMessage(message));

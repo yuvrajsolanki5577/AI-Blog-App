@@ -41,12 +41,18 @@ const Profile = () => {
       <h1 className="mb-4 m-5 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Profile</h1>
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
         <div className="flex flex-col items-center pb-10">
-            <img className="w-24 h-24 mt-5 mb-5 rounded-full shadow-lg" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="Bonnie image"/>
+            <img className="w-24 h-24 mt-5 mb-5 rounded-full shadow-lg" src={user?.profile?.url ? user?.profile?.url : "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"} alt="Bonnie image"/>
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{user.name}</h5>
             <span className="text-sm text-gray-500 dark:text-gray-400">{user.email}</span>
+            {
+              user?.description && 
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  {user.description}
+              </p>
+            }
             <div className="flex mt-4 space-x-3 md:mt-6">
                 <Link to="/edit-profile" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit Profile</Link>
-                <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Save</a>
+                <Link to="/new-blog" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Create New Blog</Link>
             </div>
         </div>
         </div>

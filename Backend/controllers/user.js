@@ -47,7 +47,11 @@ exports.editProfile = async (req,res) => {
     const { name, email, description } = req.body;
     const {file} = req;
 
-    const user = User.findOne({email});
+    const user = await User.findOne({email});
+    
+    if(!user){
+        return res.status(400).json({ error : `User Not Found !!`});
+    }
 
     user.name = name;
     user.description = description;
@@ -57,12 +61,19 @@ exports.editProfile = async (req,res) => {
         user.profile = { url , public_id};
     }
 
-    user.save();
+    await user.save();
+
+    if(file){
+        const newUser = await User.findOne({email});    
+        return res.status(200).json({
+            message : `Edit Profile Successfull`,
+            profile : newUser?.profile?.url
+        });
+    }
 
     return res.status(200).json({
         message : `Edit Profile Successfull`
     });
-
 }
 
 exports.loginUser = async (req,res) => {
@@ -90,7 +101,11 @@ exports.loginUser = async (req,res) => {
             expiresIn : "30d"
         });
 
-        return res.status(200).json({message : `User Login Successfully` , token, name : user.name , email : user.email});
+        if(user.profile){
+            return res.status(200).json({message : `User Login Successfully` , token, name : user.name , email : user.email, profile: user.profile.url});
+        }
+
+        return res.status(200).json({message : `User Login Successfully` , token, name : user.name , email : user.email, verified: user.verified});
 
     } catch (error) {
         res.status(500).json({error : error.message});

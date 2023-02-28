@@ -1,26 +1,30 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AIGenerate } from '../../store/features/AI/AIServices';
+import { AIGenerateTitle } from '../../store/features/AI/AIServices';
 import { STATUSES } from '../../store/features/blog/blogSlice';
 
 const AiTitleGenerate = () => {
 
-  const[input, setInput] = useState();
+  const [input, setInput] = useState();
+  const [newTitle, setNewTitle] = useState([]);
 
-  const { blog , status } = useSelector((state) => state.AI);
+  const { title , status } = useSelector((state) => state.AI);
   const dispatch = useDispatch();
 
+  const handleTitle = (titles) => {
+    const arr = titles.split('.');
+    const newArr = []
+    arr.map((ele) => {
+      newArr.push(ele.slice(1,-2) + '..');
+      console.log(ele.slice(1,-2));
+    });
+    setNewTitle(newArr);
+  }
+
   const handleSubmit = (e) => {
-      
       e.preventDefault();
-      
-      const values = {
-        command : `Generate blog topics on `,
-        input : input,
-        words : 100
-      }
-      
-      dispatch(AIGenerate(values));
+      dispatch(AIGenerateTitle(input));
+      handleTitle(title);
   }
 
   return (
@@ -43,9 +47,19 @@ const AiTitleGenerate = () => {
           (STATUSES.LOADING===status) && <h1 className='flex m-5 items-center mb-6 text-gray-900 dark:text-white text-3xl font-bold underline'> Loading ...</h1>
         }
         {
-          blog &&
+          title &&
           <div className="w-full mt-4 bg-white rounded-lg p-4 shadow dark:border md:mt-10 sm:max-w-md xl:p-4 dark:bg-gray-800 dark:border-gray-700">
-            <p className="leading-relaxed m-5 text-gray-200 mb-6"> {blog} </p>
+          <ol className='max-w-md space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400'>
+            {
+              newTitle.map((ele,index) => {
+              if(index!=0){
+                return (
+                <li key={index} className="leading-relaxed m-5 text-gray-200 mb-3"> {ele} </li>
+              ); 
+              }
+            })
+            }
+            </ol>
         </div>
         }
       </div>

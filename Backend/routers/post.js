@@ -175,6 +175,6 @@ router.get("/category/:category",getPostByCategory);
 router.get("/posts",getPosts);
 router.get("/search",searchPost);
 router.get("/related-posts/:postId",getRelatedPosts);
-router.post("/upload-image",verify , multer.single('image'),uploadImage);
+router.post("/upload-image",verify , multer.single('profile'),uploadImage);
 
 module.exports = router;

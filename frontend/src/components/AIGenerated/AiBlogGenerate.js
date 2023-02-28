@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AIGenerate } from '../../store/features/AI/AIServices';
+import { AIGenerateBlog } from '../../store/features/AI/AIServices';
 import { STATUSES } from '../../store/features/blog/blogSlice';
 
 const AiBlogGenerate = () => {
@@ -10,16 +10,8 @@ const AiBlogGenerate = () => {
   const[input, setInput] = useState();
 
   const handleSubmit = (e) => {
-
       e.preventDefault();
-
-      const values = {
-        command : `Generate blog on `,
-        input : input,
-        words : 2000
-      }
-
-      dispatch(AIGenerate(values));
+      dispatch(AIGenerateBlog(input));
   }
 
   return (

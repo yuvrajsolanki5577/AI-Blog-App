@@ -9,8 +9,15 @@ export function loginUser(input){
         try {
             const {email,password} = input;
             const res = await axios.post(`/user/login`,{email,password});
+
             if(res){
-                const { name, email , message , token, profile} = res.data;
+                const { name, email , message , token, profile , verified} = res.data;
+                
+                if(!verified){
+                    CheckUser(STATUSES.ERROR,"User Account is Not Verified");
+                    return;
+                }
+
                 const user = { user : name , token , email, profile};
                 localStorage.setItem('user',JSON.stringify(user));
                 dispatch(setUserStatus(STATUSES.SUCCESS));

@@ -1,5 +1,5 @@
 import { STATUSES } from "../blog/blogSlice"
-import { setBlog, setStatus } from "./AISlice"
+import { setBlog, setStatus, setTitle } from "./AISlice"
 import { Configuration, OpenAIApi }  from "openai";
 
   const configuration = new Configuration({
@@ -8,21 +8,14 @@ import { Configuration, OpenAIApi }  from "openai";
   
   const openai = new OpenAIApi(configuration);
 
-export function AIGenerate({command,userInput,words}){
+export function AIGenerateBlog(value){
     return async function AIGenerateThunk(dispatch,getState){
         dispatch(setStatus(STATUSES.LOADING));
         try {
           
           await new Promise((resolve,reject) => {
                   setTimeout(() => {
-                    dispatch(setBlog(`1. Benefits of Having a Blog
-                    2. Proven Strategies for Growing Your Blog Audience
-                    3. How to Monetize Your Blog
-                    4. What Content to Post on Your Blog
-                    5. Tips on Writing Engaging Blog Posts
-                    6. Blogging Mistakes to Avoid
-                    7. How to Optimize Your Blog for SEO
-                    8. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos nemo eaque, ullam illum ex sed non unde possimus repellat quos nesciunt cum deserunt ea, mollitia ab at accusamus recusandae ipsum molestiae omnis iusto cumque vel quasi! Dignissimos eum consequatur tempora esse accusamus nobis minima aliquam quas obcaecati nihil, rem nemo, ullam consequuntur doloremque nisi, ducimus dicta.
+                    dispatch(setBlog(`Eos nemo eaque, ullam illum ex sed non unde possimus repellat quos nesciunt cum deserunt ea, mollitia ab at accusamus recusandae ipsum molestiae omnis iusto cumque vel quasi! Dignissimos eum consequatur tempora esse accusamus nobis minima aliquam quas obcaecati nihil, rem nemo, ullam consequuntur doloremque nisi, ducimus dicta.
                     Ratione mollitia maxime tempora magnam maiores eos dolor at ex dolore illum esse, aut reprehenderit odit id quam fugiat animi neque cupiditate necessitatibus. Maiores repellendus perspiciatis saepe, praesentium doloremque incidunt eaque cupiditate neque? Dolorum exercitationem sed porro ad temporibus pariatur adipisci nesciunt minus modi vitae tempora quibusdam quisquam, odio laborum, iste ullam, obcaecati qui molestiae iure tenetur nemo ab. Eligendi rem, placeat beatae magnam voluptas, distinctio quam reiciendis ipsam dolorem nihil asperiores pariatur repellendus, alias amet ab. Quo vel maiores sequi obcaecati ducimus aliquam facere animi dolorem optio. Voluptas incidunt, quas tempore tenetur ipsum consequuntur porro id vitae minus odit eos nobis, amet, maiores provident molestias vel voluptate nihil fugit molestiae esse magnam nesciunt ad non. In eius magni, voluptatibus nisi quibusdam vitae tempore nemo ducimus incidunt omnis pariatur officia doloribus exercitationem optio saepe expedita, deserunt quo facilis inventore dolorem recusandae reiciendis quidem impedit. Quasi aspernatur, soluta quidem consequatur, aliquid cumque placeat aliquam minus earum, corporis eveniet nisi alias ea. Ad at et, reiciendis consectetur blanditiis laboriosam molestias optio ab placeat exercitationem. Voluptatibus beatae eligendi sunt nam veniam eius odio maxime adipisci repellat, aspernatur nisi nemo quae saepe rem omnis quos fugiat ad quo.
                     Iste, deleniti voluptatibus! Neque consequuntur dolorem dicta ab ea architecto magnam fugit non est odio sapiente necessitatibus hic exercitationem quo aliquam unde, cupiditate animi quasi doloribus repellendus quibusdam? Ut ad quae omnis soluta, sunt repellendus nulla esse odio inventore dolorem eveniet. Voluptatem commodi magnam itaque a pariatur voluptatum sed expedita, optio nihil voluptate eos, vel quisquam, sint at tempora ipsa beatae? Cum animi sequi rerum distinctio laborum nostrum, corrupti minima fugiat numquam quae a error obcaecati quas perferendis. Assumenda provident architecto, delectus, sapiente impedit accusamus dolores voluptatum quia magnam possimus iste distinctio optio vitae ea et qui enim deserunt! Quos, cumque? Voluptates nesciunt quos magni qui minus pariatur, libero laudantium architecto magnam asperiores, nihil atque deserunt harum sequi provident eveniet ipsa nobis dicta voluptate rem saepe. Mollitia dolorum quos unde libero reiciendis architecto illum ut praesentium tempore cumque, obcaecati tempora placeat modi deserunt? Quia debitis veniam fugiat provident voluptatibus omnis, consequatur voluptate temporibus. Veritatis beatae quo, qui molestias consequuntur laborum minus minima, at excepturi voluptatum obcaecati, vero quae voluptate velit consequatur.
                      Totam dolorum numquam accusamus, ipsam placeat beatae? Quia praesentium ea ipsam, rem perspiciatis nulla libero tempora consectetur molestiae, quibusdam facilis totam dolorum maiores amet. Quod, praesentium? Cumque rerum in quasi omnis molestias velit exercitationem quidem nesciunt neque nam obcaecati debitis unde, dolorum ipsum, iste ea? Officia cupiditate consequatur atque, ad dolor repellendus quos laborum at eveniet natus quasi incidunt. Laborum ipsam iste, cupiditate ut non ex minima quis incidunt sunt animi nulla alias quasi eum vel cum? Nulla adipisci laudantium amet dignissimos alias magni, dolore quisquam asperiores fugiat eius commodi error vitae ullam, blanditiis eaque impedit mollitia omnis eos illum quae! Est, nulla? Aspernatur voluptas, dolore omnis nihil autem asperiores iste incidunt magnam provident voluptates. Quae magnam officiis et commodi corrupti autem, pariatur, aperiam repudiandae nostrum ipsam culpa consectetur quia maiores excepturi voluptatibus sint nam, explicabo mollitia aut dolores numquam! Neque, quibusdam debitis! Deserunt libero laboriosam optio sint vel neque, exercitationem officia minus eveniet, rerum perferendis harum dicta. Rem eveniet atque libero voluptate aliquid quo. Sequi reprehenderit nulla dolorem placeat totam hic laborum in cupiditate itaque natus ducimus, cumque aut architecto, molestias iusto suscipit at inventore tempora esse quidem rerum! Officia cumque porro quibusdam, assumenda.
@@ -34,20 +27,17 @@ export function AIGenerate({command,userInput,words}){
                         commodi reprehenderit? Accusantium nesciunt debitis ipsam eius error a tempore impedit at possimus, minus dolorum. earum placeat voluptas! Inventore tempora eius voluptates modi doloremque, aperiam harum quam quo sit nisi vel, possimus impedit mollitia a nesciunt perspiciatis numquam enim unde et porro! Debitis quo ex corrupti, veritatis vel dolor excepturi amet illo dolore nulla eaque dolores id suscipit eligendi culpa tempore dicta voluptas aliquam expedita libero deleniti voluptatibus vitae. Reiciendis sunt aut veniam odio fugit molestiae accusantium sit adipisci inventore sed necessitatibus illum fuga sequi vel earum aliquam facere aspernatur cupiditate, quibusdam aperiam error quo est neque nemo? Amet, saepe eos illum repellendus possimus similique quaerat ipsa voluptatum autem reprehenderit quos voluptates facere at aspernatur odio, blanditiis fugit! Quaerat soluta eum praesentium omnis culpa veritatis ut consequuntur? Alias sed ducimus tempora, nam animi assumenda laborum aut cupiditate odio doloribus facilis quae voluptatem quo tempore quasi adipisci eius corporis temporibus. Voluptate cumque quam inventore vero tempora possimus perspiciatis? Ut, ea omnis atque, quis earum animi est cumque, tempore amet rerum cum laudantium quasi tenetur tempora quisquam. Consequuntur, harum, pariatur ad deserunt itaque velit laborum eaque amet voluptatum tempora corporis magni obcaecati et sapiente id? Ut sapiente dolores commodi laboriosam recusandae.
                         , eligendi magni dignissimos odio nihil explicabo delectus ipsum et repudiandae, voluptates libero magnam, vel earum aliquid dicta doloribus eum esse veritatis ipsa! Quasi illo, dolores possimus ratione cupiditate nesciunt rerum rem necessitatibus quis quos eum ullam dicta, blanditiis non eius ad similique quo. Hic cupiditate excepturi eius amet voluptatum praesentium aut labore ad obcaecati voluptate quisquam facere at similique delectus et. eos, ab voluptas! Iste mollitia omnis pariatur incidunt illo laborum assumenda neque, vel, quo amet, dicta minima error voluptate veniam sunt veritatis rem? Accusantium officiis libero fugiat voluptatibus quod, quisquam optio labore. Ipsa veritatis cum repellendus esse repellat. Quisquam facilis asperiores laudantium labore optio. Voluptate vero dolorum vel necessitatibus, iure veritatis magnam sed neque fugiat nam ratione, quam facere culpa debitis dolores nihil accusamus atque! Dolor accusamus consequatur corporis dignissimos voluptatibus quam veniam nemo architecto. Repudiandae hic perferendis quas, nisi debitis qui error quae, odio vel fuga eveniet voluptatibus voluptatem ex maiores voluptatum quasi adipisci atque. Placeat provident aut qui ut libero dolorem sed, ratione cum eveniet fuga nam dicta! Ex, adipisci. Totam sed asperiores in doloremque, debitis fugit at explicabo minus quibusdam, impedit ex laboriosam amet, inventore corporis et corrupti beatae reprehenderit repellat libero nam dolores dolorem. Mollitia, fugit doloremque ullam accusantium repellendus odit earum, quae impedit nemo animi eum pariatur adipisci tenetur? Eaque adipisci repellendus, aperiam vitae nam ex, accusamus soluta mollitia aut, necessitatibus veritatis? Distinctio accusantium aperiam earum consequatur dolorem culpa nisi praesentium debitis mollitia harum provident illo perferendis cumque, libero odio enim quod doloribus in? Deserunt quis distinctio dignissimos. Ad, impedit tempore iusto voluptates corrupti nam laudantium po.
                        ssimus quae eveniet molestias quibusdam, minima minus deserunt. Dolore, corrupti est maxime blanditiis, asperiores quo ab enim possimus, ratione distinctio quas? Quae ut architecto fugiat perferendis optio nemo eos, quis non minima sed in! Laborum aliquam illum reprehenderit odit quasi debitis adipisci itaque perspiciatis unde non facilis, officia hic fugiat libero dolore quae voluptate incidunt iure voluptatibus nobis. Eum odio cum ullam nam a, maxime praesentium culpa autem fugiat vero quisquam. Perferendis neque tempora, deserunt cupiditate repudiandae delectus porro. Temporibus, quo debitis officia ex, corporis earum quam animi est reiciendis pariatur consequuntur facere itaque. Suscipit, iste quis ad et dicta consequuntur quisquam dolorem!
-                    8. How to Create High-Quality Visual Caontent for Your Blog
                     `));
-
-
                     resolve();
                     dispatch(setStatus(STATUSES.SUCCESS));
-              }, 5000);
+              }, 2000);
           });
 
             // const res = await openai.createCompletion({
             //     model: "text-davinci-003",
-            //     prompt: `${command} : ${userInput}`,
+            //     prompt: `Generate a blog on a topic ${value}`,
             //     temperature: 0.8,
-            //     max_tokens: words,
+            //     max_tokens: 1000,
             //     top_p: 1,
             //     frequency_penalty: 0,
             //     presence_penalty: 0,
@@ -64,4 +54,52 @@ export function AIGenerate({command,userInput,words}){
     }
 }
 
-// For Testing
+
+export function AIGenerateTitle(value){
+  return async function AIGenerateThunk(dispatch,getState){
+      dispatch(setStatus(STATUSES.LOADING));
+      try {
+        
+        await new Promise((resolve,reject) => {
+                setTimeout(() => {
+                  dispatch(setTitle(`
+                    1. Exploring the Benefits of Backend Technologies for Web Development
+                    2. Introduction to the Basics of Backend Development
+                    3. Investigating the Latest Trends in Backend Technologies
+                    4. Understanding the Advantages of Serverless Computing
+                    5. Building Your First Backend Service with NodeJS
+                    6. Automating Your Backend Development with Cloud Services
+                    7. Securing Your Backend Services with Authentication and Authorization
+                    8. What Are the Best Practices for Database Design?
+                    9. Optimizing Performance of Your Backend System
+                    10. Building Scalable Backend Services with Microservices
+                    11. Troubleshooting Common Issues with Backend Technologies
+                    12. Scaling Your Backend Services for Maximum Efficiency
+                    13. Exploring the Benefits of GraphQL for Backend Development
+                    14. Picking the Right Backend Technology for Your Project
+                  `));
+                  dispatch(setStatus(STATUSES.SUCCESS));
+                  resolve();
+            }, 2000);
+        });
+
+          // const res = await openai.createCompletion({
+          //     model: "text-davinci-003",
+          //     prompt: `Genrate 10+ blog titles on a topic ${value}`,
+          //     temperature: 0.8,
+          //     max_tokens: 200,
+          //     top_p: 1,
+          //     frequency_penalty: 0,
+          //     presence_penalty: 0,
+          //   });
+
+          // console.log(res);
+          // dispatch(setTitle(res.data.choices[0].text));
+          // dispatch(setStatus(STATUSES.SUCCESS));
+          
+      } catch (error) {
+          console.log(error);
+          dispatch(setStatus(STATUSES.ERROR));
+      }
+  }
+}

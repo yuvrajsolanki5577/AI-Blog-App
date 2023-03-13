@@ -16,7 +16,7 @@ const EditProfile = () => {
     const [profile, setProfile] = useState();
     const [user, setUser] = useState();
     
-    const initialValues = {
+    let initialValues = {
         name : "",
         description : "",
     }
@@ -26,7 +26,6 @@ const EditProfile = () => {
             try {
                 const res = await axios.get(`/user/user`, { headers : {authorization} });
                 setUser(res.data.user);
-                // console.log(res.data.user);
             } catch (error) {
                 console.log(error);
             }
@@ -48,9 +47,7 @@ const EditProfile = () => {
                 formData.append(key, finalData[key]);
             }
 
-            const res = await axios.post(`/user/user`,formData);
-            // Problem to be Solved
-            // localStorage.setItem("user", JSON.stringify(user));
+            const res = await axios.post(`/user/update-profile`,formData,{ headers : {authorization} });
             Navigate('/profile');
         }
     });

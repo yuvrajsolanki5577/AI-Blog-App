@@ -7,6 +7,5 @@ axios.interceptors.request.use((req) => {
 });
   
 axios.interceptors.response.use((res) => {
-    console.log(res);
     return res;
 });

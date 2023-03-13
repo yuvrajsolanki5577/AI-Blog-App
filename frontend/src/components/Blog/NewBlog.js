@@ -67,8 +67,6 @@ const NewBlog = () => {
       },
     });
 
-    // console.log(thumbnail);
-
   return (
     <section className="mx-auto w-12/12 flex bg-gray-50 mb-6 dark:bg-gray-900">
       <div className="px-6 py-8 mx-auto md:h-screen mb-6 lg:py-0">

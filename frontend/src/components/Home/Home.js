@@ -10,8 +10,6 @@ const Home = () => {
   const {data , status} = useSelector((state) => state.blog);
   const {posts} = data;
 
-  // console.log(posts);
-
   useEffect(() => {
     dispatch(fetchBlogs());
   }, []);

@@ -16,7 +16,6 @@ const AiTitleGenerate = () => {
     const newArr = []
     arr.map((ele) => {
       newArr.push(ele.slice(1,-2) + '..');
-      console.log(ele.slice(1,-2));
     });
     setNewTitle(newArr);
   }

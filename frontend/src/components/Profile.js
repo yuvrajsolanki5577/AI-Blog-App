@@ -72,7 +72,6 @@ const Profile = () => {
           blogs.map((blog) => {
             return (
               <div className="m-2" key={blog._id}> 
-                {console.log(blog.thumbnail)}
                 <a href="#" className="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                 <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={blog?.thumbnail ? blog.thumbnail.url : "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=820&q=80"} alt="" />
                 <div className="flex flex-col justify-between p-4 leading-normal">

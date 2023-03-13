@@ -12,18 +12,15 @@ const Blog = () => {
     const fetchBlog = async () => {
         try {
             const res = await axios.get(`/post/single/${postId}`);
-            // console.log(res);
             setPost(res.data.Post)
         } catch (error) {
-            // console.log(error);
+            console.log(error);
             setError(true);
         }
     }
     fetchBlog();
     
 }, []);
-  
-//  console.log(post);
 
   return (
     <>

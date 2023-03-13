@@ -2,7 +2,7 @@ import React from 'react'
 
 function About() {
   return (
-    <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
+    <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-gray-900'>
       <section className="text-gray-400 bg-gray-900 body-font">
       <div className="container px-5 py-24 mx-auto">
       <h2 className="mb-6 mt-10 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">

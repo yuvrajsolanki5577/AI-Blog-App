@@ -132,6 +132,6 @@ router.post('/verify-email',verifyEmail);
 router.post("/forgot-password",forgotPassword);
 router.post("/reset-password",isResetTokenValid,resetPassword);
 router.get("/user",verify,getUser);
-router.post("/user",verify,multer.single('profile'),editProfile);
+router.post("/update-profile",verify,multer.single('profile'),editProfile);
 
 module.exports = router;

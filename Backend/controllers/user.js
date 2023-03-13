@@ -47,6 +47,12 @@ exports.editProfile = async (req,res) => {
     const { name, email, description } = req.body;
     const {file} = req;
 
+    if(!name){
+        return res.status(401).json({
+            error: 'Name Cannot be Empty'
+        });
+    }
+
     const user = await User.findOne({email});
     
     if(!user){

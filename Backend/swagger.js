@@ -1,25 +1,33 @@
-const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerAutogen = require('swagger-autogen')()
 
-const options = {
-    definition: {
-      openapi: '3.0.0',
-      servers : [
-        {
-            url : "http://localhost:2800"
-        }
-      ],
-      info: {
-        title: 'AI Blog App API',
-        version: '1.0.0',
-        description : "AI Blog App is An Hybrid Application Works on Both Mobile Devices and Web !!",
-        contact : {
-            name : "Shubham Jain",
-            email : "shubhamjainpvt28@gmail.com"
-        }
-      },
+const doc = {
+    info: {
+        version: "1.0.0",
+        title: "AI Blog App API",
+        description: "API Documentation for AI Blog APP"
     },
-    apis: ["./routers/*.js","./models/*js"], // files containing annotations as above
-  };
+    host: "localhost:2800",
+    basePath: "/",
+    schemes: ['http', 'https'],
+    consumes: ['application/json'],
+    produces: ['application/json'],
+    tags: [
+        {
+            "name": "User",
+            "description": "Endpoints"
+        }
+    ],
+    securityDefinitions: {
+        apiKeyAuth:{
+            type: "apiKey",
+            in: "header",       // can be "header", "query" or "cookie"
+            name: "X-API-KEY",  // name of the header, query parameter or cookie
+            description: "Enter JWT token to get authenticate"
+        }
+    }
+}
 
-const swaggerDocs = swaggerJSDoc(options);
-module.exports = swaggerDocs;
+const outputFile = './swagger-output.json';
+const endpointsFiles = ['./app.js'];
+
+swaggerAutogen(outputFile, endpointsFiles, doc);

@@ -12,7 +12,7 @@ exports.userValidator = [
 exports.validate = (req,res,next) => {
     const error = validationResult(req).array();
     if(error.length){
-       return res.status(401).json({error : error[0].msg})
+       return res.status(400).json({error : error[0].msg})
     }
     next();
 }
@@ -20,7 +20,7 @@ exports.validate = (req,res,next) => {
 exports.isResetTokenValid = async (req,res,next) => {
     const { token , id } = req.body;
     if(!token || !id){
-        return res.status(404).json({error : `Invalid Token or Id`});
+        return res.status(400).json({error : `Invalid Token or Id`});
     }
     
     if(!isValidObjectId(id)){
@@ -40,7 +40,7 @@ exports.isResetTokenValid = async (req,res,next) => {
     const isValid = await resetToken.compareToken(token);
     
     if(isValid){
-        return res.status(404).json({error : `Reset Token is Not Valid`});
+        return res.status(400).json({error : `Reset Token is Not Valid`});
     }
 
     req.users = user;

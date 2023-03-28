@@ -4,7 +4,7 @@ const verify = (req,res,next) => {
     try {
         const token = req.headers?.authorization?.split(" ")[1];
         if(!token){
-            return res.status(404).json({message : `No Token Found !!`});
+            return res.status(401).json({message : `No Token Found !!`});
         }
         const {_id} = jwt.verify(String(token),process.env.JWT_SECRET_KEY);
         req.User_id = _id;

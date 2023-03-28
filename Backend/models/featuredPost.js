@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const featuredPostSchema = mongoose.Schema({
     post : {
         type : mongoose.Schema.Types.ObjectId,

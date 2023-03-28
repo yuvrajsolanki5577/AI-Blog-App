@@ -9,7 +9,7 @@ export function loginUser(input){
         try {
             const {email,password} = input;
             const res = await axios.post(`/user/login`,{email,password});
-
+            console.log(res);
             if(res){
                 const { name, email , message , token, profile , verified} = res.data;
                 

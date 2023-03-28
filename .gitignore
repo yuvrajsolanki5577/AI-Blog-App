@@ -4,6 +4,8 @@
 /frontend/node_modules
 /Backend/node_modules
 
+/React-Native.mp4
+
 /frontend/.env
 /backend/.env
 

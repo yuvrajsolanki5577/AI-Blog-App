@@ -18,9 +18,9 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <div className="logo">AI Blog App</div>
+        <div className="logo"><Link to="/"> AI Blog App </Link></div>
 
-        <label for="btn" className="icon">
+        <label htmlFor="btn" className="icon">
           <span className="fa fa-bars"></span>
         </label>
 
@@ -32,7 +32,7 @@ const Navbar = () => {
           </li>
 
           <li>
-            <label for="btn-1" className="show">
+            <label htmlFor="btn-1" className="show">
               Categories{" "}
             </label>
             <Link to="/category/categories">Categories</Link>
@@ -45,7 +45,7 @@ const Navbar = () => {
                 <Link to="/category/technology"> Technology </Link>
               </li>
               <li>
-                <Link to="/category/backedn">Backend</Link>
+                <Link to="/category/backend">Backend</Link>
               </li>
             </ul>
           </li>
@@ -58,7 +58,7 @@ const Navbar = () => {
 
           {user && (
             <li>
-              <label for="btn-2" className="show">
+              <label htmlFor="btn-2" className="show">
                 AI Generate
               </label>
               <Link to="#">AI Generate</Link>
@@ -102,7 +102,7 @@ const Navbar = () => {
           )}
           {user && (
             <li>
-              <label for="btn-3" className="show">
+              <label htmlFor="btn-3" className="show">
                 Profile
               </label>
               <Link to="/" className="bg-blue-500 rounded-3xl hover:text-black">
@@ -135,7 +135,7 @@ const Navbar = () => {
  
     <input type="checkbox" id="nav-check" />
     <div className="nav-btn">
-      <label for="nav-check">
+      <label htmlFor="nav-check">
         <span></span>
         <span></span>
         <span></span>
